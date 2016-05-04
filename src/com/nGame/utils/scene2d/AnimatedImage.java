@@ -21,4 +21,8 @@ public class AnimatedImage extends Image {
         drawable.update(delta);
         super.act(delta);    //To change body of overridden methods use File | Settings | File Templates.
     }
+
+    public void reset() {
+        drawable.reset();
+    }
 }
