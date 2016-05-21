@@ -25,4 +25,12 @@ public class AnimatedImage extends Image {
     public void reset() {
         drawable.reset();
     }
+
+    public void flipHorizontally(boolean flip) {
+    	drawable.flipHorizontally(flip);
+    }
+
+    public boolean isFlippedHorizontally(){
+    	return drawable.isFlippedHorizontally();
+    }
 }
