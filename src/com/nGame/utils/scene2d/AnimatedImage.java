@@ -1,5 +1,7 @@
 package com.nGame.utils.scene2d;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
@@ -9,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
  *         Date: 23.11.13 - 16:09
  */
 public class AnimatedImage extends Image {
-    private AnimatedDrawable drawable;
+    public AnimatedDrawable drawable;
 
     public AnimatedImage(AnimatedDrawable drawable) {
         super(drawable);
@@ -26,11 +28,21 @@ public class AnimatedImage extends Image {
         drawable.reset();
     }
 
-    public void flipHorizontally(boolean flip) {
-    	drawable.flipHorizontally(flip);
+    public void flipHorizontally() {
+    	drawable.flipHorizontally();
     }
 
     public boolean isFlippedHorizontally(){
     	return drawable.isFlippedHorizontally();
+    }
+
+    public Animation getCopyOfAnimation() {
+    	return drawable.getCopyOfAnimation();
+    }
+
+    public void draw(Batch batch, float parentAlpha) {
+    	batch.draw(drawable.animation.getKeyFrame(((AnimatedDrawable) drawable).stateTime), getX(), getY(), getOriginX(), getOriginY(),
+    			getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+    	this.validate();
     }
 }

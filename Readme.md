@@ -17,7 +17,7 @@ You can either download the repo, pick some specific class or integrate the whol
 Add ngame as submodule, in your projct folder exec:
 
 ```
-git submodule git@github.com:n0iz/ngame.git
+git submodule add https://github.com/n0iz/ngame.git
 ```
 
 If you do a "git status" you should get something like:

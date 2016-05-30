@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,9 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
  *         Date: 23.11.13 - 16:23
  */
 public class AnimatedDrawable extends BaseDrawable {
-    private Animation animation;
-    private float stateTime = 0;
-    private boolean flipH = false;
+    public Animation animation;
+    public float stateTime = 0;
+    private boolean flipH = false; //true if original image is flipped
 
     public AnimatedDrawable(Animation ani) {
         this.animation = ani;
@@ -28,18 +29,32 @@ public class AnimatedDrawable extends BaseDrawable {
     }
 
     public void reset() {
+    	if (isFlippedHorizontally()) flipHorizontally();
         stateTime = 0;
     }
 
-    public void flipHorizontally(boolean flip) {
+    public void flipHorizontally() {
     	for (TextureRegion keyFrame : animation.getKeyFrames()){
-    		keyFrame.flip(flip, false);
+    		keyFrame.flip(true, false);
     	}
-    	flipH = flip;
+    	if (isFlippedHorizontally()) {
+	    	flipH = false;
+    	}else{
+    		flipH = true;
+    	}
     }
 
-    public boolean isFlippedHorizontally(){
+    public boolean isFlippedHorizontally() {
     	return flipH;
+    }
+
+    public Animation getCopyOfAnimation(){
+    	Array<TextureRegion> copyOfRegions = new Array<TextureRegion>();
+    	for(TextureRegion keyFrame : animation.getKeyFrames()) {
+    	    TextureRegion region = new TextureRegion(keyFrame);
+    	    copyOfRegions.add(region);
+    	}
+    	return new Animation(animation.getFrameDuration(), copyOfRegions, animation.getPlayMode());
     }
 
     @Override
