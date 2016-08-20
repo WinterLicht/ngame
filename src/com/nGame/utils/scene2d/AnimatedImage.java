@@ -40,9 +40,14 @@ public class AnimatedImage extends Image {
     	return drawable.getCopyOfAnimation();
     }
 
+    @Override
     public void draw(Batch batch, float parentAlpha) {
     	batch.draw(drawable.animation.getKeyFrame(((AnimatedDrawable) drawable).stateTime), getX(), getY(), getOriginX(), getOriginY(),
     			getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     	this.validate();
+    }
+
+    public void setPlayMode(Animation.PlayMode playMode) {
+    	drawable.animation.setPlayMode(playMode);
     }
 }
